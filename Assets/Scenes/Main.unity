@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 62368530}
   - component: {fileID: 62368529}
   m_Layer: 5
-  m_Name: Camera_Dropdown
+  m_Name: CameraDevice_Dropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 206874533}
   - component: {fileID: 206874534}
   - component: {fileID: 206874535}
+  - component: {fileID: 206874536}
   m_Layer: 0
   m_Name: SYSTEM
   m_TagString: Untagged
@@ -472,7 +473,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 206874532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9de7db8f6cc18294cb60b8de95f2ea01, type: 3}
+  m_Script: {fileID: 11500000, guid: 3877e6b1ff27f8f46ac214298389c9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &206874535
@@ -485,6 +486,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3694f1ad533d9584eae30e75c6af19ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &206874536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206874532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0537454f11db37499296bc23afac558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &212119767
@@ -2399,7 +2412,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 20}
+  m_SizeDelta: {x: 0, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075275358
 MonoBehaviour:
