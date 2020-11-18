@@ -16,11 +16,16 @@ public class WebCamController : MonoBehaviour
     {
         //ドロップダウンの取得と設定
         Device_Dropdown = GameObject.Find("CameraDevice_Dropdown").GetComponent<TMP_Dropdown>();
+
+        //ドロップダウンのリストを更新するためのイベントを設定
         EventTrigger trigger = Device_Dropdown.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerDown;
         entry.callback.AddListener((x) => UpdateDeviceDropdown());
         trigger.triggers.Add(entry);
+
+        //デバイス選択時のイベントを設定
+        Device_Dropdown.onValueChanged.AddListener((x) => SetDevice(x));
 
 
 
@@ -39,5 +44,13 @@ public class WebCamController : MonoBehaviour
             Device_Dropdown.options.Add(new TMP_Dropdown.OptionData { text = name });
         }
         Device_Dropdown.RefreshShownValue();
+    }
+
+    /// <summary>ドロップダウンから使用するデバイスを設定</summary>
+    public void SetDevice(int num)
+    {
+        WebCamDevice selectedDevice = WebCamTexture.devices[num];
+
+        OutputView.Add($"デバイスが設定されました -> {selectedDevice.name}");
     }
 }
