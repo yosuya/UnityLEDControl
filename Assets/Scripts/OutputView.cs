@@ -31,7 +31,7 @@ public class OutputView : MonoBehaviour
         Instance = this;
     }
 
-    //静的バージョンの追加メソッド
+    //動的バージョンの追加メソッド
     protected void Add_NS(string text)
     {
         GameObject newContent = Instantiate(TemplateObject, Vector3.zero, Quaternion.identity, Content_Transform);
