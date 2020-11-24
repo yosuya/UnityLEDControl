@@ -32,7 +32,7 @@ public class OutputView : MonoBehaviour
     }
 
     //動的バージョンの追加メソッド
-    protected void Add_NS(string text)
+    protected void Write_NS(string text)
     {
         GameObject newContent = Instantiate(TemplateObject, Vector3.zero, Quaternion.identity, Content_Transform);
 
@@ -52,7 +52,7 @@ public class OutputView : MonoBehaviour
     }
 
     /// <summary>OutputViewにコンテンツを追加する</summary>
-    static public void Add(string text)
+    static public void Write(string text)
     {
         if (Instance == null)
         {
@@ -60,7 +60,7 @@ public class OutputView : MonoBehaviour
             return;
         }
 
-        Instance.Add_NS(text);
+        Instance.Write_NS(text);
     }
 }
 

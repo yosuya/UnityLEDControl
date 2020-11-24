@@ -51,6 +51,6 @@ public class WebCamController : MonoBehaviour
     {
         WebCamDevice selectedDevice = WebCamTexture.devices[num];
 
-        OutputView.Add($"デバイスが設定されました -> {selectedDevice.name}");
+        OutputView.Write($"デバイスが設定されました -> {selectedDevice.name}");
     }
 }
