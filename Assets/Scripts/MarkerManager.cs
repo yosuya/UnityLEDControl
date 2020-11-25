@@ -43,6 +43,9 @@ public class MarkerManager : MonoBehaviour
         Select_Toggle.onValueChanged.AddListener((x) => SelectMode(x, MarkerEditorMode.Select));
         Move_Toggle.onValueChanged.AddListener((x) => SelectMode(x, MarkerEditorMode.Move));
         Edit_Toggle.onValueChanged.AddListener((x) => SelectMode(x, MarkerEditorMode.Edit));
+
+        //マーカーの初期設定
+        Marker.Setup(this, MarkerField);
     }
 
     ///<summary>マウスボタンがマーカー配置領域内で押されたときのコールバック</summary>
@@ -89,7 +92,7 @@ public class MarkerManager : MonoBehaviour
         markerList.Add(markerComponent); //作成したマーカーを管理リストに追加
 
         while (markerList.Select(x => x.ID).Contains(assignedID)) assignedID++; //競合していたら別の値にする
-        markerComponent.Setup(assignedID, this); //ID割り当て、管理クラス(this)を設定
+        markerComponent.SetID(assignedID); //ID割り当て、管理クラス(this)を設定
     }
 
 
