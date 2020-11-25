@@ -34,8 +34,8 @@ public class MarkerManager : MonoBehaviour
         //イベントを登録
         EventTrigger trigger = MarkerField.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerDown;
-        entry.callback.AddListener((x) => OnMouseButtonClick(x));
+        entry.eventID = EventTriggerType.PointerClick;
+        entry.callback.AddListener((x) => OnPointerClick(x));
         trigger.triggers.Add(entry);
 
         //Toggleの設定
@@ -49,30 +49,26 @@ public class MarkerManager : MonoBehaviour
     }
 
     ///<summary>マウスボタンがマーカー配置領域内で押されたときのコールバック</summary>
-    public void OnMouseButtonClick(BaseEventData eventData)
+    public void OnPointerClick(BaseEventData eventData)
     {
         Vector2 localMousePos = Vector2.zero;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(MarkerField, Input.mousePosition, null, out localMousePos);
 
-        PointerEventData pointerEvent = (PointerEventData)eventData;
+        PointerEventData pointerEvent = (PointerEventData)eventData; //PointerEventDataに変換
 
         //モードによって処理を変える
         switch (CurrentMode)
         {
-            case MarkerEditorMode.Edit:
-                if (Input.GetMouseButton(0))//左クリックした時のみ
+            case MarkerEditorMode.Edit: //Editモードのときの処理
+                //押されたボタンによって処理を変える
+                switch (pointerEvent.button)
                 {
-                    AddMarker(localMousePos);
-                }
-                else if (Input.GetMouseButton(1))//右クリックしたとき
-                {
-                    /*
-                    var raycastResult = new List<RaycastResult>();
-                    EventSystem.current.RaycastAll(pointerEvent, raycastResult);
-                    GameObject targetObj = raycastResult.First().gameObject;
+                    case PointerEventData.InputButton.Left://左クリックした
+                        AddMarker(localMousePos);
+                        break;
+                    case PointerEventData.InputButton.Right://右クリックした
 
-                    if (targetObj.name == "Marker") RemoveMarker(targetObj);
-                    */
+                        break;
                 }
                 break;
         }
