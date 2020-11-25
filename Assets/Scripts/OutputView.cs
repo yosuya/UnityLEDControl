@@ -37,7 +37,7 @@ public class OutputView : MonoBehaviour
         GameObject newContent = Instantiate(TemplateObject, Vector3.zero, Quaternion.identity, Content_Transform);
 
         newContent.transform.Find("Text").GetComponent<TMP_Text>().text = $"[{DateTime.Now.ToString("hh:mm:ss")}]   {text}";
-        newContent.name = $" Log_{DateTime.Now.ToString("hh:mm:ss")}";
+        newContent.name = $"Log_{DateTime.Now.ToString("hh:mm:ss")}";
 
         newContent.SetActive(true);
 
