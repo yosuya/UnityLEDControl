@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class MarkerManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class MarkerManager : MonoBehaviour
 
     public RectTransform MarkerField; //マーカーを配置する領域
     public GameObject MarkerTemplate; //マーカーのテンプレート（これを複製する）
+
+    public Transform MarkerListContentTransform; //ここにマーカーリストのコンテンツを入れる
+    public GameObject MarkerListContentTemplate; //これがリストの1行のオブジェクト
 
     /// UI
     public Toggle Select_Toggle;
@@ -87,8 +91,18 @@ public class MarkerManager : MonoBehaviour
         Marker markerComponent = newMarker.GetComponent<Marker>();
         markerList.Add(markerComponent); //作成したマーカーを管理リストに追加
 
+        //IDの割当
         while (markerList.Select(x => x.ID).Contains(assignedID)) assignedID++; //競合していたら別の値にする
         markerComponent.SetID(assignedID); //ID割り当て、管理クラス(this)を設定
+
+        //マーカーリスト（画面上の表示）に追加する
+        GameObject newMarkerListContent = Instantiate(MarkerListContentTemplate, Vector3.zero, Quaternion.identity, MarkerListContentTransform);
+        newMarkerListContent.name = "MarkerContent";
+        newMarkerListContent.SetActive(true);
+        newMarkerListContent.transform.Find("ID_Text").GetComponent<TMP_Text>().text = assignedID.ToString();
+        newMarkerListContent.transform.Find("PosX_Text").GetComponent<TMP_Text>().text = pos.x.ToString("0.0");
+        newMarkerListContent.transform.Find("PosY_Text").GetComponent<TMP_Text>().text = pos.y.ToString("0.0");
+        markerComponent.SetMarkerContent(newMarkerListContent); //マーカーコンテンツの登録
     }
 
 

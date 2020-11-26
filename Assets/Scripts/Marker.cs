@@ -10,14 +10,18 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
     static protected MarkerManager Manager;
     static protected RectTransform MarkerField;
 
+    public GameObject MarkerListContent { get; private set; } = null;
+
     public static void Setup(MarkerManager manager, RectTransform markerField)
     {
         Manager = manager;
         MarkerField = markerField;
     }
 
+    ///<summary>このマーカーにIDを割り当てる</summary>
     public void SetID(int id) => ID = id;
-
+    ///<summary>このマーカーの情報を表示するマーカーリストの要素を登録</summary>
+    public void SetMarkerContent(GameObject contentObj) => MarkerListContent = contentObj;
 
     ///<summary>マウスカーソルが乗ったときの処理</summary>
     public void OnPointerEnter(PointerEventData eventData)
@@ -58,6 +62,7 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
     {
         Manager.RemoveMarker(this); //マーカー削除を通知
         Destroy(gameObject); //マーカーを削除する
+        Destroy(MarkerListContent); //マーカーリストの表示から消す
     }
 
 }
