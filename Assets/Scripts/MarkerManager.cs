@@ -99,7 +99,7 @@ public class MarkerManager : MonoBehaviour
         GameObject newMarkerListContent = Instantiate(MarkerListContentTemplate, Vector3.zero, Quaternion.identity, MarkerListContentTransform);
         newMarkerListContent.name = "MarkerContent";
         newMarkerListContent.SetActive(true);
-        newMarkerListContent.transform.Find("ID_Text").GetComponent<TMP_Text>().text = assignedID.ToString();
+        newMarkerListContent.transform.Find("ID_IF").GetComponent<TMP_InputField>().text = assignedID.ToString();
         newMarkerListContent.transform.Find("PosX_Text").GetComponent<TMP_Text>().text = pos.x.ToString("0.0");
         newMarkerListContent.transform.Find("PosY_Text").GetComponent<TMP_Text>().text = pos.y.ToString("0.0");
         markerComponent.SetMarkerContent(newMarkerListContent); //マーカーコンテンツの登録
