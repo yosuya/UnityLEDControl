@@ -113,6 +113,22 @@ public class MarkerManager : MonoBehaviour
     }
 
 
+    ///<summary>引数idと競合しているIDのインデックスを探す（競合していない場合はListの要素数が0になる）</summary>
+    public List<int> FindConflictIndex(int id)
+    {
+        List<int> conflictIndexList = new List<int>(); //競合しているインデックスを格納
+
+        for (int idx = 0; idx < markerList.Count; idx++)
+        {
+            if (markerList[idx].ID == id)
+            {
+                conflictIndexList.Add(idx);
+            }
+        }
+        return conflictIndexList;
+    }
+
+
     /// <summary>Toggleの選択によるモード選択（UIのコールバックに設定）</summary>
     public void SelectMode(bool isOn, MarkerEditorMode mode_num)
     {

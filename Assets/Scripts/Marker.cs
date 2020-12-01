@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using TMPro;
 
 public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointerClickHandler
 {
@@ -12,6 +12,9 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
 
     public GameObject MarkerListContent { get; private set; } = null;
 
+    protected TMP_InputField ID_IF;
+
+    ///<summary>Markerのクラスのセットアップ</summary>
     public static void Setup(MarkerManager manager, RectTransform markerField)
     {
         Manager = manager;
@@ -21,7 +24,13 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
     ///<summary>このマーカーにIDを割り当てる</summary>
     public void SetID(int id) => ID = id;
     ///<summary>このマーカーの情報を表示するマーカーリストの要素を登録</summary>
-    public void SetMarkerContent(GameObject contentObj) => MarkerListContent = contentObj;
+    public void SetMarkerContent(GameObject contentObj)
+    {
+        MarkerListContent = contentObj;
+        ID_IF = contentObj.transform.Find("ID_IF").GetComponent<TMP_InputField>();
+        ID_IF.onEndEdit.AddListener((x) => OnEndEdit_ID(x));
+    }
+
 
     ///<summary>マウスカーソルが乗ったときの処理</summary>
     public void OnPointerEnter(PointerEventData eventData)
@@ -54,6 +63,22 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
             {
                 transform.localPosition = localMousePos; //位置を更新
             }
+        }
+    }
+
+
+    ///<summary>マーカーリストのID_IFの値が変更された時</summary>
+    public void OnEndEdit_ID(string value)
+    {
+        int requestedID = int.Parse(value);
+        var conflictIndex = Manager.FindConflictIndex(requestedID);
+        if (conflictIndex.Count == 0) //競合するIDでは無い
+        {
+            SetID(requestedID);
+        }
+        else //他のマーカーのIDと競合している
+        {
+            ID_IF.text = ID.ToString();
         }
     }
 
