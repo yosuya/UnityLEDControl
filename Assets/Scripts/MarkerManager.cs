@@ -16,6 +16,8 @@ public class MarkerManager : MonoBehaviour
     public Transform MarkerListContentTransform; //ここにマーカーリストのコンテンツを入れる
     public GameObject MarkerListContentTemplate; //これがリストの1行のオブジェクト
 
+    public Camera UICamera;
+
     /// UI
     public Toggle Select_Toggle;
     public Toggle Move_Toggle;
@@ -56,7 +58,7 @@ public class MarkerManager : MonoBehaviour
     public void OnPointerClick(BaseEventData eventData)
     {
         Vector2 localMousePos = Vector2.zero;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(MarkerField, Input.mousePosition, null, out localMousePos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(MarkerField, Input.mousePosition, UICamera, out localMousePos);
 
         PointerEventData pointerEvent = (PointerEventData)eventData; //PointerEventDataに変換
 
@@ -97,6 +99,7 @@ public class MarkerManager : MonoBehaviour
 
         //マーカーリスト（画面上の表示）に追加する
         GameObject newMarkerListContent = Instantiate(MarkerListContentTemplate, Vector3.zero, Quaternion.identity, MarkerListContentTransform);
+        newMarkerListContent.transform.localPosition = Vector3.zero;
         newMarkerListContent.name = "MarkerContent";
         newMarkerListContent.SetActive(true);
         newMarkerListContent.transform.Find("ID_IF").GetComponent<TMP_InputField>().text = assignedID.ToString();

@@ -56,7 +56,7 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
         if (MarkerManager.CurrentMode == MarkerManager.MarkerEditorMode.Move) //移動モードのとき
         {
             Vector2 localMousePos = Vector2.zero;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(MarkerField, eventData.position, null, out localMousePos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(MarkerField, eventData.position, Manager.UICamera, out localMousePos);
 
             //ドラッグしている範囲が特定の領域内であるときのみ有効
             if (localMousePos.x >= 0 && localMousePos.y <= 0 && localMousePos.x <= MarkerField.sizeDelta.x && localMousePos.y >= -MarkerField.sizeDelta.y)
