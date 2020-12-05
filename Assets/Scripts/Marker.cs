@@ -7,12 +7,14 @@ using TMPro;
 public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointerClickHandler
 {
     public int ID { get; private set; } = -1;
+    public Vector2 Position { get; private set; } = -Vector2.one;
     static protected MarkerManager Manager;
     static protected RectTransform MarkerField;
 
     public GameObject MarkerListContent { get; private set; } = null;
 
     protected TMP_InputField ID_IF;
+    protected TMP_Text[] Pos_Text = new TMP_Text[2]; //0: x, 1: y
 
     ///<summary>Markerのクラスのセットアップ</summary>
     public static void Setup(MarkerManager manager, RectTransform markerField)
@@ -22,13 +24,29 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
     }
 
     ///<summary>このマーカーにIDを割り当てる</summary>
-    public void SetID(int id) => ID = id;
+    public void SetID(int id)
+    {
+        ID = id;
+        ID_IF.text = id.ToString();
+    }
+
+    ///<summary>このマーカーの位置を設定</summary>
+    public void SetPosition(Vector2 pos)
+    {
+        Position = pos; //値の更新
+        Pos_Text[0].text = pos.x.ToString("0.0");
+        Pos_Text[1].text = pos.y.ToString("0.0");
+    }
+
     ///<summary>このマーカーの情報を表示するマーカーリストの要素を登録</summary>
     public void SetMarkerContent(GameObject contentObj)
     {
         MarkerListContent = contentObj;
         ID_IF = contentObj.transform.Find("ID_IF").GetComponent<TMP_InputField>();
         ID_IF.onEndEdit.AddListener((x) => OnEndEdit_ID(x));
+
+        Pos_Text[0] = contentObj.transform.Find("PosX_Text").GetComponent<TMP_Text>();
+        Pos_Text[1] = contentObj.transform.Find("PosY_Text").GetComponent<TMP_Text>();
     }
 
 
@@ -37,6 +55,8 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
     {
         if (Input.GetMouseButton(1) && MarkerManager.CurrentMode == MarkerManager.MarkerEditorMode.Edit) //右クリックしているとき＆編集モード
         {
+            if (!MarkerManager.AllowToEditMarker) return;　//編集禁止のため処理せず返す
+
             RemoveThisMarker();
         }
     }
@@ -46,6 +66,8 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
     {
         if (eventData.button == PointerEventData.InputButton.Right && MarkerManager.CurrentMode == MarkerManager.MarkerEditorMode.Edit) //右クリックしているとき＆編集モード
         {
+            if (!MarkerManager.AllowToEditMarker) return;　//編集禁止のため処理せず返す
+
             RemoveThisMarker();
         }
     }
