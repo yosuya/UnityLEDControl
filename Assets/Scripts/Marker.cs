@@ -36,6 +36,8 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
         Position = pos; //値の更新
         Pos_Text[0].text = pos.x.ToString("0.0");
         Pos_Text[1].text = pos.y.ToString("0.0");
+
+        transform.localPosition = pos; //位置の更新   
     }
 
     ///<summary>このマーカーの情報を表示するマーカーリストの要素を登録</summary>
@@ -83,7 +85,7 @@ public class Marker : MonoBehaviour, IPointerEnterHandler, IDragHandler, IPointe
             //ドラッグしている範囲が特定の領域内であるときのみ有効
             if (localMousePos.x >= 0 && localMousePos.y <= 0 && localMousePos.x <= MarkerField.sizeDelta.x && localMousePos.y >= -MarkerField.sizeDelta.y)
             {
-                transform.localPosition = localMousePos; //位置を更新
+                SetPosition(localMousePos); //位置をセットする
             }
         }
     }
