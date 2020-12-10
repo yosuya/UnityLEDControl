@@ -1,4 +1,4 @@
-# UnityLEDControl
+# UnityLEDControl (開発中)
  LEDを制御するためのアプリケーション
 
 
