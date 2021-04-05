@@ -9,19 +9,29 @@ public class AppManager : MonoBehaviour
     protected WebCamController _webCamController;
     protected MarkerManager _markerManager;
 
+    public SceneMode sceneMode;
 
     void Start()
     {
         //インスタンスを取得
         _uiController = GetComponent<UIController>();
-        _webCamController = GetComponent<WebCamController>();
-        _markerManager = GetComponent<MarkerManager>();
-
         //スクリプトの初期化を実行
         _uiController.Setup();
-        _webCamController.Setup();
-        _markerManager.Setup();
 
+        if (sceneMode == SceneMode.Display)
+        {
+            _webCamController = GetComponent<WebCamController>();
+            _markerManager = GetComponent<MarkerManager>();
+            _webCamController.Setup();
+            _markerManager.Setup();
+        }
+
+    }
+
+    public enum SceneMode
+    {
+        Display = 0,
+        Simple = 1
     }
 
 }
