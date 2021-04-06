@@ -12,7 +12,7 @@ public class SerialController : MonoBehaviour
 {
     private static SerialController Instance = null;
 
-    bool isConnected = false;
+    public static bool isConnected { get; private set; } = false;
     WinSerial serial = null;
 
     /// UI
@@ -122,7 +122,7 @@ public class SerialController : MonoBehaviour
     public void OnDisable()
     {
         if (!isConnected) return;
-        
+
         serial.Close();
         isConnected = false;
     }

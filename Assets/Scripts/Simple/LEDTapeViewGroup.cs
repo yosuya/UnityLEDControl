@@ -39,4 +39,9 @@ public class LEDTapeViewGroup : MonoBehaviour
             LEDTapeViewList[i].SetColor(color);
         }
     }
+
+    public Color GetColor()
+    {
+        return LEDTapeViewList[0].GetColor();
+    }
 }

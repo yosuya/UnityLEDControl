@@ -41,8 +41,8 @@ public class LEDTapeView : MonoBehaviour
         LEDView_Image.sprite = sprite_led;
     }
 
-    public void ApplyColor()
+    public Color GetColor()
     {
-
+        return LEDColors[0]; //仮
     }
 }
