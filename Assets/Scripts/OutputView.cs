@@ -38,6 +38,7 @@ public class OutputView : MonoBehaviour
 
         newContent.transform.Find("Text").GetComponent<TMP_Text>().text = $"[{DateTime.Now.ToString("hh:mm:ss")}]   {text}";
         newContent.name = $"Log_{DateTime.Now.ToString("hh:mm:ss")}";
+        newContent.GetComponent<RectTransform>().localPosition = Vector3.zero;
 
         newContent.SetActive(true);
 

@@ -8,6 +8,7 @@ public class AppManager : MonoBehaviour
     protected UIController _uiController;
     protected WebCamController _webCamController;
     protected MarkerManager _markerManager;
+    protected SerialController _serialController;
 
     public SceneMode sceneMode;
 
@@ -18,12 +19,18 @@ public class AppManager : MonoBehaviour
         //スクリプトの初期化を実行
         _uiController.Setup();
 
+
         if (sceneMode == SceneMode.Display)
         {
             _webCamController = GetComponent<WebCamController>();
             _markerManager = GetComponent<MarkerManager>();
             _webCamController.Setup();
             _markerManager.Setup();
+        }
+        else
+        {
+            _serialController = GetComponent<SerialController>();
+            _serialController.Setup();
         }
 
     }
@@ -34,4 +41,8 @@ public class AppManager : MonoBehaviour
         Simple = 1
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+    }
 }
