@@ -4,24 +4,39 @@ using UnityEngine;
 
 public class LEDTapeViewGroup : MonoBehaviour
 {
+    public static LEDTapeViewGroup Instance { get; private set; }
+
     public GameObject LEDTapeViewTemplate;
     private List<LEDTapeView> LEDTapeViewList = new List<LEDTapeView>();
 
-    public int NumOfTapes;
+    private int NumOfTapes;
 
-    private void Start()
+    private void Awake()
     {
-        SetLEDTapes(NumOfTapes);
+        Instance = this;
     }
 
-    public void SetLEDTapes(int num_of_tapes)
+    public void Setup(int num_of_tapes, int num_of_leds)
     {
-        for (int i = 0; i < num_of_tapes; i++)
+        NumOfTapes = num_of_tapes;
+        for (int i = 0; i < NumOfTapes; i++)
         {
             GameObject instance = Instantiate(LEDTapeViewTemplate, gameObject.transform);
             instance.name = $"LEDTapeView_{i}";
-            RectTransform rectTransform = instance.GetComponent<RectTransform>();
+
+            LEDTapeView ledTapeView = instance.GetComponent<LEDTapeView>();
+            LEDTapeViewList.Add(ledTapeView);
+            ledTapeView.Setup(num_of_leds);
+
             instance.SetActive(true);
+        }
+    }
+
+    public void SetColor(Color color)
+    {
+        for (int i = 0; i < NumOfTapes; i++)
+        {
+            LEDTapeViewList[i].SetColor(color);
         }
     }
 }

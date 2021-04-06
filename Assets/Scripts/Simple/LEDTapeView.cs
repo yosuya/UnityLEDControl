@@ -21,12 +21,18 @@ public class LEDTapeView : MonoBehaviour
         NumOfLEDs = num_of_leds; //LEDの数を設定
 
         LEDColors = new Color[num_of_leds];
+
+        SetColor(new Color(0.5f, 0.5f, 0.5f));
+    }
+
+    public void SetColor(Color color)
+    {
         for (int i = 0; i < NumOfLEDs; i++)
         {
-            LEDColors.SetValue(new Color(0, 0, i % 2), i);
+            LEDColors.SetValue(color, i);
         }
 
-        texture2D_led = new Texture2D(num_of_leds, 1);
+        texture2D_led = new Texture2D(NumOfLEDs, 1);
         texture2D_led.filterMode = FilterMode.Point;
         texture2D_led.SetPixels(LEDColors);
         texture2D_led.Apply();
@@ -35,19 +41,8 @@ public class LEDTapeView : MonoBehaviour
         LEDView_Image.sprite = sprite_led;
     }
 
-    public void SetColor()
-    {
-
-    }
-
     public void ApplyColor()
     {
 
     }
-
-    private void Start()
-    {
-        Setup(60);
-    }
-
 }
