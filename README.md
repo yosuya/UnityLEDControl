@@ -1,5 +1,7 @@
-# UnityLEDControl (開発中)
- LEDを制御するためのアプリケーション
+UnityLEDControlはUnityLEDControl2に置き換えられました。
+
+# UnityLEDControl (開発停止)
+LEDを制御するためのアプリケーション
 
 
 Requirements Package
